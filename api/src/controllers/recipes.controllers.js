@@ -34,38 +34,41 @@ export const getRecipe = async (req, res) => {
 };
 
 export const createRecipe = async (req, res) => {
-    // try {
-    //     const { name, summary, healthscore, ingredients, steps, image, dietsId } = req.body;
-    //     if (
-    //         typeof name === 'string' &&
-    //         typeof summary === 'string' &&
-    //         typeof healthscore === 'number' &&
-    //         (Array.isArray(ingredients) && ingredients.length > 0) &&
-    //         (Array.isArray(steps) && steps.length > 0) &&
-    //         typeof image === 'string' &&
-    //         (Array.isArray(dietsId) && dietsId.length > 0)
-    //     ) {
-    //         const newRecipe = await Recipe.create({
-    //             name,
-    //             summary,
-    //             healthscore,
-    //             ingredients,
-    //             steps,
-    //             image
-    //         });
-    //         const diets = await Diet.findAll({
-    //             where: {
-    //                 id: dietsId
-    //             }
-    //         });
-    //         await newRecipe.addDiets(diets);
-    //         res.json(newRecipe);
-    //     } else {
-    //         return res.status(422).json({ message: 'Unprocessable Entity' });
-    //     };
-    // } catch (error) {
-    //     return res.status(500), json({ message: error.message });
-    // };
-
-    res.json('ping pong pung')
+    try {
+        const { name, summary, healthscore, readyInMinutes, servings, ingredients, steps, image, dietsId } = req.body;
+        if (
+            typeof name === 'string' &&
+            typeof summary === 'string' &&
+            typeof healthscore === 'number' &&
+            typeof readyInMinutes === 'number' &&
+            typeof servings === 'number' &&
+            (Array.isArray(ingredients) && ingredients.length > 0) &&
+            (Array.isArray(steps) && steps.length > 0) &&
+            typeof image === 'string' &&
+            (Array.isArray(dietsId) && dietsId.length > 0)
+        ) {
+            const newRecipe = await Recipe.create({
+                name,
+                summary,
+                healthscore,
+                readyInMinutes,
+                servings,
+                ingredients,
+                steps,
+                image
+            });
+            const diets = await Diet.findAll({
+                where: {
+                    id: dietsId
+                }
+            });
+            await newRecipe.addDiets(diets);
+            res.json(newRecipe);
+        } else {
+            return res.status(422).json({ message: 'Unprocessable Entity' });
+        };
+    } catch (error) {
+        return res.status(500), json({ message: error.message });
+    };
+    
 };
