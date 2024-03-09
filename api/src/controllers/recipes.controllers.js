@@ -11,7 +11,7 @@ export const getRecipes = async (req, res) => {
         if (allRecipes.length === 0) return res.status(404).json({ message: "Recipes not found" });
         res.json(allRecipes);
     } catch (error) {
-        return res.status(500), json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     };
 };
 
@@ -48,7 +48,7 @@ export const createRecipe = async (req, res) => {
             (Array.isArray(dietsId) && dietsId.length > 0)
         ) {
             const newRecipe = await Recipe.create({
-                name,
+                name: name.toLowerCase(),
                 summary,
                 healthscore,
                 readyInMinutes,
@@ -68,7 +68,7 @@ export const createRecipe = async (req, res) => {
             return res.status(422).json({ message: 'Unprocessable Entity' });
         };
     } catch (error) {
-        return res.status(500), json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     };
     
 };

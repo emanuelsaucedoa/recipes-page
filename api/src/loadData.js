@@ -22,7 +22,7 @@ const loadData = async (req, res) => {
     for (let i = 0; i < recipes.length; i++) {
         const obj = {};
 
-        obj.name = recipes[i].name;
+        obj.name = recipes[i].name.toLowerCase();
         obj.summary = recipes[i].summary;
         obj.healthscore = recipes[i].healthscore;
         obj.readyInMinutes = recipes[i].readyInMinutes;
