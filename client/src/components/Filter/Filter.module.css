@@ -1,0 +1,27 @@
+.superContainer{
+    position: relative;
+}
+
+.container {
+    height: 60px;
+    width: 150px;
+    /* border: 1px solid black; */
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.container:focus {
+    outline: none;
+}
+
+.icon{
+    position: absolute;
+    top: 34%;
+    left: 80%;
+}

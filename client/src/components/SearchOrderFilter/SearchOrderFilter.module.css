@@ -1,0 +1,18 @@
+.container{
+    /* border: 1px solid black; */
+    width: 1320px;
+    height: 125px;
+    margin: auto;
+    margin-top: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .orderAndFilter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+

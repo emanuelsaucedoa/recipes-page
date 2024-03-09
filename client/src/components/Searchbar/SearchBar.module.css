@@ -1,0 +1,32 @@
+.container{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    position: relative;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+input{
+    width: 175px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    padding-left: 20px;
+    border: none;
+}
+
+input:focus{
+    border: none;
+    outline: none;
+}
+
+span{
+    position: absolute;
+    top: 35%;
+    left: 80%;
+}

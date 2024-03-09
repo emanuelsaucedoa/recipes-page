@@ -1,0 +1,12 @@
+.container{
+    /* border: 1px solid black; */
+    width: 1335px;
+    min-height: 500px;
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}

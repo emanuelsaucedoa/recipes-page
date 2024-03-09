@@ -1,0 +1,79 @@
+.container{
+    background-color: white;
+    height: 475px;
+    width: 275px;
+    margin: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 10px;
+}
+
+.container div img{
+    width: 100%;
+    height: 200px;
+}
+
+.container div h3{
+    height: 75px;
+}
+
+.container .description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.container div p{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.container div p img{
+    width: 25px;
+    height: 25px;
+}
+
+.container .viewMore{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+}
+
+.container .diets{
+    width: 60px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 0.4rem;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    
+    border-radius: 0px 0px 10px 0px;
+    padding: 10px;
+}
+
+.container .diets img{
+    width: 40px;
+    height: 40px;
+}
+
+.container .healthy{
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 67%;
+    left: 60%;
+}
