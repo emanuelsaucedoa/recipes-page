@@ -1,11 +1,9 @@
 import s from './Card.module.css';
 import readyInMinutes from '../../assets/readyInMinutes.svg';
 import servings from '../../assets/servings.webp';
-import { FaLocationArrow } from "react-icons/fa";
+import { FaArrowRightLong } from "react-icons/fa6";
 import healthy from '../../assets/healthy.svg';
-import dairyFree from '../../assets/dairy-free.svg';
-import glutenFree from '../../assets/gluten-free.svg';
-import vegan from '../../assets/vegan.svg';
+
 
 const Card = () => {
     return (
@@ -27,21 +25,9 @@ const Card = () => {
                 <p>
                     View more
                 </p>
-                <FaLocationArrow fontSize='18px' />
+                <FaArrowRightLong fontSize='20px' />
             </div>
-
-            {/* <div className={s.diets}>
-                <img src={dairyFree} alt="" />
-                <img src={glutenFree} alt="" />
-                <img src={vegan} alt="" />
-                <p>whole30</p>
-                <p>fodmap friendly</p>
-                <p>keto</p>
-            </div> */}
-
             <img className={s.healthy} src={healthy} alt="" />
-
-
         </div>
     )
 };

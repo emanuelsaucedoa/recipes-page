@@ -5,13 +5,16 @@ import Filter from '../Filter/Filter.jsx';
 
 const SearchOrderFilter = () => {
     return (
-        <div className={s.container}>
-            <SearchBar />
-            <div className={s.orderAndFilter}>
-                <Filter />
-                <Order />
+        <div className={s.superContainer}> 
+            <div className={s.container}>
+                <SearchBar />
+                <div className={s.orderAndFilter}>
+                    <Filter />
+                    <Order />
+                </div>
             </div>
         </div>
+
     )
 }
 

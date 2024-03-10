@@ -1,6 +1,130 @@
-.container{
-    border: 1px solid black;
+.superContainer{
     width: 1200px;
     min-height: 100vh;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.superContainer .back{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    gap: 1rem;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid green;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.superContainer .back p{
+    font-size: 22px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: green;
+}
+
+.superContainer .container{
+    width: 95%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.superContainer .container div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 30px;
+}
+
+.superContainer .container div .healthscore{
+    margin-top: 2px;
+    color: green;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.superContainer .container div .healthscore img{
+    width: 40px;
+    height: 40px;
+}
+
+.superContainer .container .diets{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10px;
+}
+
+.superContainer .container .diets img{
+    width: 40px;
+    height: 40px;
+}
+
+.superContainer .container .diets p{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    color: red;
+}
+
+.superContainer .container .summary{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 1rem;
+}
+
+.superContainer .container .summary img{
+    width: 350px;
+    height: 250px;
+}
+
+.superContainer .container .description{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10px;
+}
+
+.superContainer .container .description p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.superContainer .container .description p img{
+    width: 25px;
+    height: 25px;
+}
+
+.superContainer .container .ingredients{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.superContainer .container .steps{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin-top: 35px;
 }

@@ -9,7 +9,7 @@ const Home = () => {
         <div className={s.container}>
             <Header/>
             <SearchOrderFilter/>
-            <Pagination/>
+            {/* <Pagination/> */}
             <Cards/>
 
         </div>
