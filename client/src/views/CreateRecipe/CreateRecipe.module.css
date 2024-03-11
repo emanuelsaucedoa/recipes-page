@@ -58,6 +58,7 @@
     font-style: normal;
     font-size: 16px;
     padding-left: 20px;
+    padding-top: 20px;
     border: none;
     border-radius: 10px;
 }
@@ -126,9 +127,10 @@
 
 .superContainer .container .ingredientInputContainer div{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 5px;
+    margin-bottom: 10px;
 }
 
 .superContainer .container .ingredientInputContainer div .ingredientInput{
@@ -160,9 +162,10 @@
 
 .superContainer .container .stepInputContainer div{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 5px;
+    margin-bottom: 10px;
 }
 
 .superContainer .container .stepInputContainer div .stepInput{

@@ -2,78 +2,107 @@ import s from './RecipeDetail.module.css';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import dairyFree from '../../assets/dairy-free.svg';
 import glutenFree from '../../assets/gluten-free.svg';
+import paleo from '../../assets/paleo.svg';
+import pescetarian from '../../assets/pescetarian.svg';
+import primal from '../../assets/primal.svg';
 import vegan from '../../assets/vegan.svg';
+import vegetarian from '../../assets/vegetarian.svg';
 import readyInMinutes from '../../assets/readyInMinutes.svg';
 import servings from '../../assets/servings.webp';
 import healthy from '../../assets/healthy.svg';
+import { useParams } from 'react-router-dom';
+import { getRecipe } from '../../redux/actions/index.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const RecipeDetail = () => {
+    const dispatch = useDispatch();
+    const { recipeId } = useParams();
+    const recipe = useSelector((state) => state.recipe);
+   
+    useEffect(() => {
+        dispatch(getRecipe(recipeId))
+    }, []);
+
+    const ingredients = recipe.ingredients ? recipe.ingredients.map((ingredient) => {
+        return JSON.parse(ingredient);
+    }) : '';
+    const steps = recipe.steps ? recipe.steps.map((step) => {
+        return JSON.parse(step);
+    }) : '';
+
+    function calculateHours(minutos) {
+        const hours = Math.floor(minutos / 60);
+        const minutesRestants = minutos % 60;
+    
+        if ( hours === 1 && minutesRestants === 0) return `${hours} hour`;
+        if ( hours > 1 && minutesRestants === 0) return `${hours} hours`;
+        if ( hours < 1 && minutesRestants === 1) return `${minutesRestants} min`
+        if ( hours < 1 && minutesRestants > 0) return `${minutesRestants} mins`
+        if ( hours > 1 && minutesRestants > 1) return `${hours} hours ${minutesRestants} mins`
+        if ( hours === 1 && minutesRestants > 0) return `${hours} hour ${minutesRestants} mins`
+    }
+    
     return (
         <div className={s.superContainer}>
             <div>
-                <div className={s.back}>
-                    <IoMdArrowRoundBack fontSize='30px' color='green' /> <p>Back to home</p>
-                </div>
+                <Link className={s.link} to='/'>
+                    <div className={s.back}>
+                        <IoMdArrowRoundBack fontSize='30px' color='green' /> <p>Back to home</p>
+                    </div>
+                </Link>
             </div>
             <div className={s.container}>
                 <div>
-                    <h2>Cannellini bean and asparagus salad with mushrooms</h2>
+                    <h2>{recipe.name}</h2>
                     <div className={s.healthscore}>
-                        <p>Healthscore 100</p>
-                        <img className={s.healthy} src={healthy} alt="" />
+                        <p className={recipe.healthscore >= 50 ? s.green : s.red}>Healthscore {recipe.healthscore}</p>
+                        {recipe.healthscore >= 50? <img className={s.healthy} src={healthy} alt="healthy" />: ""}
                     </div>
                     
                 </div>
                 <div className={s.diets}>
-                    <img src={dairyFree} alt="" />
-                    <img src={glutenFree} alt="" />
-                    <img src={vegan} alt="" />
-                    <p>whole30</p>
-                    <p>fodmap friendly</p>
-                    <p>keto</p>
+                    {recipe.diets ? recipe.diets.map((diet) => {
+                        if ( diet.name === 'gluten free') return <img src={glutenFree} alt="gluten-free"/>
+                        if ( diet.name === 'dairy free') return <img src={dairyFree} alt="dairy-free"/>
+                        if ( diet.name === 'lacto ovo vegetarian') return <img src={vegetarian} alt="lacto-ovo-vegetarian"/>
+                        if ( diet.name === 'vegan') return <img src={vegan} alt="vegan"/>
+                        if ( diet.name === 'paleolithic') return <img src={paleo} alt="paleolithic"/>
+                        if ( diet.name === 'primal') return <img src={primal} alt="primal"/>
+                        if ( diet.name === 'pescetarian') return <img src={pescetarian} alt="pescetarian"/>
+                    }): ''}
+                    {recipe.diets ? recipe.diets.map((diet) => {
+                        if ( diet.name === 'whole 30') return <p className={s.green}>Whole 30</p>
+                        if ( diet.name === 'fodmap friendly') return <p className={s.green}>Fodmap friendly</p>
+                        if ( diet.name === 'ketogenic') return <p className={s.green}>Ketogenic</p>
+                    }): ''}
                 </div>
                 <div className={s.summary}>
-                    <img src="https://spoonacular.com/recipeImages/782585-312x231.jpg" alt="" />
-                    <p>
-                        Cannellini Bean and Asparagus Salad with Mushrooms requires approximately <b>45 minutes</b> from start to finish. This main course has <b>482 calories</b>, <b>31g of protein</b>, and <b>6g of fat</b> per serving. This gluten free, dairy free, lacto ovo vegetarian, and vegan recipe serves 6 and costs <b>$1.35 per serving</b>. 309 people were impressed by this recipe. Head to the store and pick up grain mustard, sea salt, lemon zest, and a few other things to make it today. It is brought to you by foodandspice.blogspot.com. Taking all factors into account, this recipe <b>earns a spoonacular score of 70%</b>, which is pretty good. Similar recipes are <a href="https://spoonacular.com/recipes/cannellini-bean-salad-422994\">Cannellini Bean Salad</a>, <a href="https://spoonacular.com/recipes/refreshing-cannellini-bean-salad-113127\">Refreshing Cannellini Bean Salad</a>, and <a href="https://spoonacular.com/recipes/cannellini-and-green-bean-salad-33177\">Cannellini-and-Green Bean Salad</a>
+                    <img src={recipe.image} alt="recipe-image" />
+                    <p dangerouslySetInnerHTML={{ __html: recipe.summary }}>
                     </p>
                 </div>
                 <div className={s.description}>
 
                     <p>
-                        <img src={readyInMinutes} alt="" />45 min
+                        <img src={readyInMinutes} alt="" />{recipe.readyInMinutes} min
                     </p>
                     <p>
-                        <img src={servings} alt="" />servings 2
+                        <img src={servings} alt="" />servings {recipe.servings}
                     </p>
                 </div>
                 <div className={s.ingredients}>
                     <h3>Ingredients</h3>
-                    <p>- 1 1/4 cups dried cannellini (white kidney) beans (3 3/4 cups cooked)</p>
-                    <p>- handful of dried curry leaves, crumbled (or 1 bay leaf)</p>
-                    <p>- 1/4 cup fresh tarragon</p>
-                    <p>- 1 clove garlic, minced or crushed</p>
-                    <p>- juice from 1 lemon (3 tablespoons)</p>
-                    <p>- 1 teaspoon grated lemon zest</p>
-                    <p>- 1/2 cup olive oil</p>
-                    <p>- 2 teaspoons olive oil</p>
-                    <p>- fresh cracked black pepper to taste</p>
-                    <p>- 1 teaspoon sea salt, or to taste</p>
-                    <p>- 8 large white mushrooms, sliced</p>
-                    <p>- 8 large white mushrooms, sliced</p>
-                    <p>- 1 to 1 1/2 teaspoons Dijon or grain mustard, to taste</p>
+                    {ingredients ? ingredients.map((ingredient) => {
+                        return <p>- {ingredient.name}</p>
+                    }) : ''}
                 </div>
                 <div className={s.steps}>
                     <h3>Steps</h3>
-                    <p>- Rinse the cannellini beans and soak for 8 hours or overnight in several inches of water. <strong>480 min</strong></p>
-                    <p>- Drain and rinse, then transfer to a medium saucepan and cover with fresh water.</p>
-                    <p>- Add the curry leaves or bay leaf and bring to a boil. Reduce heat to medium-low, cover, and simmer for 1 hour or until the beans are tender but not falling apart. <strong>60 min</strong></p>
-                    <p>- Drain and transfer to a large salad bowl.Meanwhile, snap the woody ends off of the asparagus spears and steam the spears for 6 minutes or until just tender but still retaining their crunch. <strong>6 min</strong></p>
-                    <p>- Transfer to the salad bowl.Now cook the mushrooms.</p>
-                    <p>- Heat the oil in a large skillet over high heat. As soon as the oil is hot, drop in the mushrooms and cook, stirring constantly, for 5 minutes or until the mushrooms begin to brown and lose some of their liquid. <strong>5 min</strong></p>
-                    <p>- Transfer to the bowl with the asparagus.To make the dressing, combine the tarragon, lemon zest, garlic, lemon juice, olive oil and mustard in a small food processor or blender. Process until smooth.</p>
-                    <p>- Pour the dressing over the salad, season with salt and pepper, and toss.</p>
-                    <p>- Serve at room temperature or chilled.</p>
+                    {steps ? steps.map((step) => {
+                            return <p>{step.step} <strong className={s.green}>{step.length ? `${calculateHours(step.length.number)}` : ''}</strong></p>
+                    }) : ''}
                 </div>
             </div>
         </div>

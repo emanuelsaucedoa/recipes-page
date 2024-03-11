@@ -46,6 +46,10 @@
     gap: 30px;
 }
 
+.superContainer .container h2{
+    text-transform: capitalize;
+}
+
 .superContainer .container div .healthscore{
     margin-top: 2px;
     color: green;
@@ -76,7 +80,6 @@
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-style: normal;
-    color: red;
 }
 
 .superContainer .container .summary{
@@ -127,4 +130,18 @@
     align-items: start;
     justify-content: center;
     margin-top: 35px;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.green{
+    color: green;
+    font-weight: 600;
+}
+
+.red{
+    color: red;
+    font-weight: 600;
 }

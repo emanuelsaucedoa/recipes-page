@@ -18,6 +18,7 @@
 
 .container div h3{
     height: 75px;
+    text-transform:capitalize;
 }
 
 .container .description {
@@ -49,6 +50,10 @@
     border-radius: 10px;
 }
 
+.container .viewMore:hover{
+    cursor: pointer;
+}
+
 .container .diets{
     width: 60px;
     height: 80%;
@@ -76,4 +81,18 @@
     position: absolute;
     top: 67%;
     left: 60%;
+}
+
+.green{
+    color: green;
+    font-weight: 600;
+}
+
+.red{
+    color: red;
+    font-weight: 600;
+}
+
+.link{
+    text-decoration: none;
 }
