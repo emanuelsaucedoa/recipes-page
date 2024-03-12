@@ -125,15 +125,14 @@ const CreateRecipe = () => {
         };
     };
 
-
-    // const submit = async () => {
-    //     await postRecipe()
-    // }
-
-    // submit()
+    const submit = (e) => {
+        e.preventDefault()
+        
+        postRecipe(state)
+    }
 
     return (
-        <div className={s.superContainer}>
+        <div className={s.superContainer} onSubmit={submit}>
             <div>
                 <div className={s.back}>
                     <IoMdArrowRoundBack fontSize='30px' color='green' /> <p>Back to home</p>
@@ -231,7 +230,7 @@ const CreateRecipe = () => {
                     <p id="9" onClick={handleDiets} className={state.dietsId.includes(9) ? s.green : ""}>is ketogenic?</p>
                     <p id="10" onClick={handleDiets} className={state.dietsId.includes(10) ? s.green : ""}>is fodmap friendly?</p>
                 </div>
-                <button type='submit'>CREATE RECIPE</button>
+                <input className={s.submit} type='submit' value='CREATE RECIPE'/>
 
             </form>
 

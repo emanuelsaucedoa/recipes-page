@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRecipes } from '../../redux/actions/index.js';
 
-const Cards = () => {
+const Cards = (props) => {
 
     const dispatch = useDispatch();
     const recipes = useSelector((state) => state.recipes);
@@ -19,7 +19,10 @@ const Cards = () => {
         <div className={s.superContainer}>
             <div className={s.container}>
                 {
-                    recipes.length && recipes.map(recipe => {
+                    recipes.length && recipes.slice(
+                        (props.pagina - 1) * props.porPagina,
+                        (props.pagina - 1) * props.porPagina + props.porPagina
+                    ).map(recipe => {
                         return <Card
                             key={recipe.id}
                             id={recipe.id}

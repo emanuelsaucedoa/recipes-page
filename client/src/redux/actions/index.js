@@ -28,6 +28,7 @@ export const getRecipe = (id) => {
 }
 
 export const postRecipe = (data) => {
+    console.log('data', data)
         fetch("http://localhost:3000/recipes", {
             method: "POST",
             headers: {

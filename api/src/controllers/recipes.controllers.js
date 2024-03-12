@@ -35,7 +35,11 @@ export const getRecipe = async (req, res) => {
 
 export const createRecipe = async (req, res) => {
     try {
-        const { name, summary, healthscore, readyInMinutes, servings, ingredients, steps, image, dietsId } = req.body;
+        let { name, summary, healthscore, readyInMinutes, servings, ingredients, steps, image, dietsId } = req.body;
+        healthscore = parseInt(healthscore);
+        readyInMinutes = parseInt(readyInMinutes);
+        servings = parseInt(servings);
+
         if (
             typeof name === 'string' &&
             typeof summary === 'string' &&
