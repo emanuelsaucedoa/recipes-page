@@ -30,7 +30,6 @@ const CreateRecipe = () => {
         dietsId: []
     })
 
-    const [ingredientAmount, setIngredientAmount] = useState([]);
     const [stepAmount, setStepAmount] = useState([]);
 
 
@@ -42,45 +41,88 @@ const CreateRecipe = () => {
     };
 
     const handleInputChangeIngredients = (e) => {
-        // e.target.index
-        // console.log('e.target.id', e.target.id)
-        // for (let i = 0; i < ingredientAmount.length; i++) {
-        //     if (parseInt(e.target.id) === (ingredientAmount[i].id)){
-        //         const ingredientsId = state.ingredients.map( i => i.id)
-        //         if (ingredientsId.includes(parseInt(e.target.id))){
-        //             setState({
-        //                 ...state,
-        //                 [e.target.name]: [...state.ingredients.filter(i => i.id !== parseInt(e.target.id)), {id: e.target.id, name: e.target.value}]
-        //             })
-        //         } else{
-        //             setState({
-        //             ...state,
-        //             [e.target.name]: [...state.ingredients, {id: e.target.id, name: e.target.value}]
-        //             // [e.target.name]: [...state.ingredients, {name: e.target.value}]
-        //         })
-        //         }
-                
-        //     }   
-        // }
-
-
-        
+        const inputId = parseInt(e.target.id);
+        const inputValue = e.target.value;
+        const updatedIngredients = state.ingredients.map( ingredient => {
+            if(ingredient.id === inputId){
+                return {...ingredient, name: inputValue}
+            }
+            return ingredient;
+        });
+        setState({
+            ...state,
+            ingredients: [...updatedIngredients]
+        });
     };
 
     const addIngredient = () => {
-        setIngredientAmount([...ingredientAmount, {id: ingredientAmount.length}])
+        setState({
+            ...state,
+            ingredients: [...state.ingredients, {id: state.ingredients.length, name: "" }]
+        })
     };
 
     const removeIngredient = (id) => {
-        setIngredientAmount([...ingredientAmount.filter(i => i.id !== id)])  
+        const newIngredients = state.ingredients.filter((ingredient) => ingredient.id !== id);
+        setState({
+            ...state,
+            ingredients: [...newIngredients]
+        })
+    };
+
+    const handleInputChangeSteps = (e) => {
+        const inputId = parseInt(e.target.id);
+        const inputValue = e.target.value;
+        const updatedSteps = state.steps.map( step => {
+            if(step.id === inputId){
+                return {...step, step: inputValue}
+            }
+            return step;
+        });
+        setState({
+            ...state,
+            steps: [...updatedSteps]
+        });
     };
 
     const addStep = () => {
-        setStepAmount([...stepAmount, {id: stepAmount.length + 1}])
+        setState({
+            ...state,
+            steps: [...state.steps, {id: state.steps.length, step: "" }]
+        })
     };
 
     const removeStep = (id) => {
-        setStepAmount([...stepAmount.filter(i => i.id !== id)])  
+        const newSteps = state.steps.filter((step) => step.id !== id);
+        setState({
+            ...state,
+            steps: [...newSteps]
+        })
+    };
+
+    const handleDiets = (e) => {
+        const id = parseInt(e.target.id) || parseInt(e.target.parentNode.id)
+        const dietExist = state.dietsId.includes(id)
+        console.log('dietExist', dietExist)
+        
+        if( dietExist === false ){
+            const newDiets = [...state.dietsId, parseInt(id)];
+            console.log('newDiets', newDiets)
+            
+            setState({
+                ...state,
+                dietsId: [...newDiets]
+            });
+        };
+
+        if( dietExist === true ){
+            const newDiets = state.dietsId.filter(diet => diet !== id)
+            console.log('newDiets', newDiets)
+            setState({
+                ...state,
+                dietsId: [...newDiets]
+            });
+        };
     };
 
 
@@ -125,10 +167,10 @@ const CreateRecipe = () => {
                     </div>
                 </div>
                 <div className={s.ingredientInputContainer}>
-                    {ingredientAmount ? ingredientAmount.map((ingredient, index) => {
+                    {state.ingredients ? state.ingredients.map((ingredient, index) => {
                         return <div key={index}>
-                                <input className={s.ingredientInput} onChange={handleInputChangeIngredients} type="text" name="ingredients" id={index} placeholder='enter ingredient' />
-                                {index === ingredientAmount.length - 1 ? <div onClick={() => removeIngredient(ingredient.id)}>
+                                <input className={s.ingredientInput} onChange={handleInputChangeIngredients} type="text" name="ingredients" id={ingredient.id} placeholder='enter ingredient' />
+                                {index === state.ingredients.length - 1 ? <div onClick={() => removeIngredient(ingredient.id)}>
                                     <RiDeleteBin5Line fontSize="26px" color='green'/>
                                 </div>: ''}
                             </div>
@@ -144,57 +186,50 @@ const CreateRecipe = () => {
                     </div>
                 </div>
                 <div className={s.stepInputContainer}>
-                    {stepAmount ? stepAmount.map((st, index) => {
+                    {state.steps ? state.steps.map((step, index) => {
                         return <div key={index}>
-                                <input className={s.stepInput} type="text"  placeholder='enter step' />
-                                {index === stepAmount.length - 1 ? <div onClick={() => removeStep(st.id)}>
+                                <input className={s.stepInput} onChange={handleInputChangeSteps} type="text" id={step.id} placeholder='enter step' />
+                                {index === state.steps.length - 1 ? <div onClick={() => removeStep(step.id)}>
                                     <RiDeleteBin5Line fontSize="26px" color='green'/>
                                 </div>: ''}
                             </div>
                     }) : ''}
-
-                    {/* <div>
-                        <input className={s.stepInput} type="text" placeholder='enter step' />
-                        <div>
-                            <RiDeleteBin5Line fontSize="26px" color='green' />
-                        </div>
-                    </div> */}
                 </div>
-                <input className={s.imageURL} type="text" placeholder='enter image URL' />
+                <input className={s.imageURL} type="text" onChange={handleInputChange} name='image' placeholder='enter image URL' />
                 <div className={s.diets}>
-                    <div>
-                        <img src={dairyFree} alt="" />
+                    <div id="2" onClick={handleDiets} className={state.dietsId.includes(2) ? s.green : ""}>
+                        <img src={dairyFree} alt="dairy-free" />
                         <p>Dairy free</p>
                     </div>
-                    <div>
-                        <img src={glutenFree} alt="" />
+                    <div id="1" onClick={handleDiets} className={state.dietsId.includes(1) ? s.green : ""}>
+                        <img src={glutenFree} alt="gluten-free" />
                         <p>Gluten free</p>
                     </div>
-                    <div>
-                        <img src={paleo} alt="" />
+                    <div id="5" onClick={handleDiets} className={state.dietsId.includes(5) ? s.green : ""}>
+                        <img src={paleo} alt="paleo" />
                         <p>Paleo</p>
                     </div>
-                    <div>
-                        <img src={pescetarian} alt="" />
+                    <div id="8" onClick={handleDiets} className={state.dietsId.includes(8) ? s.green : ""}>
+                        <img src={pescetarian} alt="pescetarian" />
                         <p>Pescetarian</p>
                     </div>
-                    <div>
-                        <img src={primal} alt="" />
+                    <div id="6" onClick={handleDiets} className={state.dietsId.includes(6) ? s.green : ""}>
+                        <img src={primal} alt="primal" />
                         <p>Primal</p>
                     </div>
-                    <div>
-                        <img src={vegan} alt="" />
+                    <div id="4" onClick={handleDiets} className={state.dietsId.includes(4) ? s.green : ""}>
+                        <img src={vegan} alt="vegan" />
                         <p>Vegan</p>
                     </div>
-                    <div>
-                        <img src={vegetarian} alt="" />
+                    <div id="3" onClick={handleDiets} className={state.dietsId.includes(3) ? s.green : ""}>
+                        <img src={vegetarian} alt="vegetarian" />
                         <p>Vegetarian</p>
                     </div>
                 </div>
                 <div className={s.additional}>
-                    <p>is whole 30?</p>
-                    <p>is ketogenic?</p>
-                    <p>is fodmap friendly?</p>
+                    <p id="7" onClick={handleDiets} className={state.dietsId.includes(7) ? s.green : ""}>is whole 30?</p>
+                    <p id="9" onClick={handleDiets} className={state.dietsId.includes(9) ? s.green : ""}>is ketogenic?</p>
+                    <p id="10" onClick={handleDiets} className={state.dietsId.includes(10) ? s.green : ""}>is fodmap friendly?</p>
                 </div>
                 <button type='submit'>CREATE RECIPE</button>
 

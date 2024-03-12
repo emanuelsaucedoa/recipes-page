@@ -236,3 +236,9 @@
     font-weight: 600;
     font-style: normal;
 }
+
+.green{
+    background-color: green;
+    /* border: none !important; */
+    color: white;
+}
