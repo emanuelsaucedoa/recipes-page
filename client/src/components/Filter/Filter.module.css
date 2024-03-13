@@ -16,6 +16,10 @@
     appearance: none;
 }
 
+.container:hover{
+    cursor: pointer;
+}
+
 .container:focus {
     outline: none;
     border-radius: 10px;
@@ -25,4 +29,5 @@
     position: absolute;
     top: 34%;
     left: 80%;
+    pointer-events: none;
 }
